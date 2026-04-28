@@ -16,7 +16,7 @@ spec:
     spec: 
       containers:
         - name: student-app-container
-          image: dikshat1024/easy-crud-backend:latest
+          image: dikshat1024/backend:9f21497952383eb334252f8ff7c8cae8cf8e0ba7
           ports:  
             - containerPort: 8080
           resources:  
