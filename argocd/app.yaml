@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: dikshat1024/student-frontend:50e8cee64a946a32868f5e5164aea71a622c375f
+          image: dikshat1024/student-frontend:d0e28b7e81ffa995d335f10e439d0b1bce74c165
           ports:
             - containerPort: 80
           resources:
@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: dikshat1024/student-frontend:50e8cee64a946a32868f5e5164aea71a622c375f
+          image: dikshat1024/student-frontend:d0e28b7e81ffa995d335f10e439d0b1bce74c165
           ports:
             - containerPort: 8080
           resources:
@@ -145,7 +145,7 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: dikshat1024/student-frontend:50e8cee64a946a32868f5e5164aea71a622c375f
+          image: dikshat1024/student-frontend:d0e28b7e81ffa995d335f10e439d0b1bce74c165
           ports:
             - containerPort: 27017
           resources:
