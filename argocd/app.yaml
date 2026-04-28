@@ -107,6 +107,7 @@ spec:
   rules:
     - http:
         paths:
+          # FRONTEND
           - path: /
             pathType: Prefix
             backend:
@@ -115,6 +116,14 @@ spec:
                 port:
                   number: 80
 
+          # BACKEND
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: student-app-backend-svc
+                port:
+                  number: 8080
 ---
 # =========================
 # MONGO DEPLOYMENT & SERVICE
