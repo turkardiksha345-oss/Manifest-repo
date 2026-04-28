@@ -1,8 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: student-app-backend
-  labels: 
+  namespace: default
+  labels:
     app: student-app-backend
 spec:
   replicas: 2
@@ -13,16 +14,16 @@ spec:
     metadata:
       labels:
         app: student-app-backend
-    spec: 
+    spec:
       containers:
-        - name: student-app-container
+        - name: backend-container
           image: dikshat1024/easy-crud-backend:latest
-          ports:  
+          ports:
             - containerPort: 8080
-          resources:  
+          resources:
             requests:
               cpu: 200m
-              memory: 100M
+              memory: 100Mi
             limits:
               cpu: 500m
-              memory: 200M      
+              memory: 200Mi
