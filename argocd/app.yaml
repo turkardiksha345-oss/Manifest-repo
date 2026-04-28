@@ -133,7 +133,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo
-  namespace: default
 spec:
   replicas: 1
   selector:
@@ -149,7 +148,6 @@ spec:
           image: mongo:6.0
           ports:
             - containerPort: 27017
-
           resources:
             requests:
               cpu: 100m
@@ -157,27 +155,12 @@ spec:
             limits:
               cpu: 500m
               memory: 256Mi
-
-          # ✅ ADD THIS (IMPORTANT)
-          volumeMounts:
-            - name: mongo-storage
-              mountPath: /data/db
-
-      # ✅ ADD THIS
-      volumes:
-        - name: mongo-storage
-          persistentVolumeClaim:
-            claimName: student-app-pvc
-
+              
 ---
-# =========================
-# MONGO SERVICE
-# =========================
 apiVersion: v1
 kind: Service
 metadata:
   name: mongo
-  namespace: default
 spec:
   selector:
     app: mongo
