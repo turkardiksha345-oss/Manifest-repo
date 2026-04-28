@@ -1,0 +1,116 @@
+# =========================
+# FRONTEND DEPLOYMENT
+# =========================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-app-frontend
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: student-app-frontend
+  template:
+    metadata:
+      labels:
+        app: student-app-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: dikshat1024/frontend
+          ports:
+            - containerPort: 80
+          resources:
+             requests:
+              cpu: 200m
+              memory: 100Mi
+             limits:
+              cpu: 500m
+              memory: 200Mi
+
+---
+# FRONTEND SERVICE
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-app-frontend-svc
+  namespace: default
+spec:
+  selector:
+    app: student-app-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+# =========================
+# BACKEND DEPLOYMENT
+# =========================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-app-backend
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: student-app-backend
+  template:
+    metadata:
+      labels:
+        app: student-app-backend
+    spec:
+      containers:
+        - name: backend
+          image: dikshat1024/backend
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 200m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 200Mi
+
+---
+# BACKEND SERVICE
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-app-backend-svc
+  namespace: default
+spec:
+  selector:
+    app: student-app-backend
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP
+
+---
+# =========================
+# INGRESS
+# =========================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: student-app-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: student-app-frontend-svc
+                port:
+                  number: 80
