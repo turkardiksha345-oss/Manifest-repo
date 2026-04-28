@@ -16,9 +16,9 @@ spec:
         app: student-app-frontend
     spec:
       containers:
-        - name: frontend-container
-          image: dikshat1024/easy-crud-frontend:latest
-          ports:
+        - name: student-app-container
+          image: dikshat1024/frontend:9f21497952383eb334252f8ff7c8cae8cf8e0ba7
+          ports:  
             - containerPort: 80
           resources:
             requests:
